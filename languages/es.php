@@ -1,6 +1,6 @@
 <?php
 
-
+/*Preparación del array que contendrá los textos con la traducción al castellano, para añadirlo más tarde al resto de traducciones con add_translation*/
 
 	$spanish = array(
 
