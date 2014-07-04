@@ -12,7 +12,9 @@
   foreach ($menuitems as $item){
     //echo $item->name;
   echo "<span>".$item->name."</span>";
-  echo "<input type='checkbox' value='".$item->name."' name='".$item->name."'/>";
+  //Por cada item imprimimos un checkbox con el valor de su nombre, y si ya existia en el array $vars[entity] imprimimos un checked...
+  echo "<input type='checkbox' value='".$item->name."'"
+  .if isset($vars['entity']->$item->name) echo "checked='checked'"." name='params[".$item->name."]'/>";
   echo " |  ";
 
 }
