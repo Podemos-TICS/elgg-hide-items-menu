@@ -40,7 +40,7 @@ echo "<span>".$item->name." -> </span>";
 .if (isset($vars['entity']->item->name)) echo "checked='checked'"." name='params[".$item->name."]'/>";
 echo " |  ";
 */
-
+$valor = $item->name;
 //COMPROVAMOS SI LA PROPIEDAD DEL OBJETO
 if ($vars['entity']->valor != NULL){
 	if ($vars['entity']->valor == 'yes'){
