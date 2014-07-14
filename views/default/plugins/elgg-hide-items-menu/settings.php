@@ -40,14 +40,10 @@ $noyes_options = array(
 
 /****************************************************************************************************************************************/
 
-/**
- * Form body for setting up site menu
- */
-
 // cantidad de elementos que tendrá el menu principal
-$num_featured_items = 6;
+$num_featured_items = count($menuitems);
 
-// get site menu items
+//RECOGER LOS ELEMENTOS DEL MENU "site"
 $menu = elgg_get_config('menus');
 $menu = $menu['site'];
 $builder = new ElggMenuBuilder($menu);
@@ -59,24 +55,25 @@ $featured_menu_names = elgg_get_config('site_featured_menu_names');
 $dropdown_values = array();
 
 $i=0;
+
 foreach ($menu_items as $item) {
-	$dropdown_values[$item->getName()] = $i;
+	$dropdown_values[$item->getName()] = $i+1;
 	$i++;
 }
-$dropdown_values[' '] = elgg_echo('none');
 
 ?>
 <div class="elgg-module elgg-module-inline">
 	<div class="elgg-body">
 <?php
 
-
 for ($i=0; $i<$num_featured_items; $i++) {
+
+	/*
 	if ($featured_menu_names && array_key_exists($i, $featured_menu_names)) {
 		$current_value = $featured_menu_names[$i];
 	} else {
 		$current_value = ' ';
-	}
+	}*/
 
 	// aqui se preparan los menús desplegables donde se encontrarán todas las opciones posibles
 	// del menu del sitio
@@ -95,10 +92,6 @@ for ($i=0; $i<$num_featured_items; $i++) {
 //echo elgg_view('input/submit', array('value' => elgg_echo('save')));
 
 /****************************************************************************************************************************************/
-
-//INDICE i INICIALIZADO A CERO
-$i=0;
-
 
 //RECORREMOS EL ARRAY DEL MENU SITE
 foreach ($menuitems as $item){
@@ -126,6 +119,28 @@ if ($vars['entity']->$valor != NULL){
 
 	echo elgg_view("input/dropdown", array("name" => "params[{$valor}]", "options_values" => $options_value, "value" => $vars['entity']->valor));
 
+	if ($featured_menu_names && array_key_exists($i, $featured_menu_names)) {
+		$current_value = $i;
+	} else {
+		$current_value = ' ';
+	}
+
+	// aqui se preparan los menús desplegables donde se encontrarán todas las opciones posibles
+	// del menu del sitio
+	echo elgg_view('input/dropdown', array(
+		'options_values' => $dropdown_values,
+		'name' => 'featured_menu_names[]',
+		'value' => $items
+	));
+$i++;
+
+	echo "<br />";
+
+}else{
+
+	//echo elgg_view("input/dropdown", array("name" => "params[{$valor}]", "options_values" => $noyes_options, "value" => $vars['entity']->valor));
+
+	echo elgg_view("input/dropdown", array("name" => "params[{$valor}]", "options_values" => $noyes_options, "value" => $vars['entity']->valor));
 
 	if ($featured_menu_names && array_key_exists($i, $featured_menu_names)) {
 		$current_value = $i;
@@ -138,17 +153,9 @@ if ($vars['entity']->$valor != NULL){
 	echo elgg_view('input/dropdown', array(
 		'options_values' => $dropdown_values,
 		'name' => 'featured_menu_names[]',
-		'value' => $current_value
+		'value' => $items
 	));
 $i++;
-
-	echo "<br />";
-
-}else{
-
-	//echo elgg_view("input/dropdown", array("name" => "params[{$valor}]", "options_values" => $noyes_options, "value" => $vars['entity']->valor));
-
-	echo elgg_view("input/dropdown", array("name" => "params[{$valor}]", "options_values" => $noyes_options, "value" => $vars['entity']->valor));
 
 	echo "<br />";
 
